@@ -1,0 +1,175 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Candidate Information Form</title>
+    <style>
+        body {
+            font-family: 'Arial', sans-serif;
+            background: linear-gradient(120deg, #ff9a9e, #fad0c4);
+            margin: 0;
+            padding: 0;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            height: 100vh;
+            color: #444;
+        }
+        .form-container {
+            background: #fff;
+            padding: 20px 30px;
+            border-radius: 15px;
+            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+            width: 100%;
+            max-width: 600px;
+        }
+        .form-container h1 {
+            text-align: center;
+            margin-bottom: 20px;
+            color: #444;
+            font-size: 24px;
+            text-transform: uppercase;
+        }
+        .form-group {
+            margin-bottom: 15px;
+        }
+        .form-group label {
+            display: block;
+            margin-bottom: 5px;
+            font-weight: bold;
+        }
+        .form-group input,
+        .form-group select {
+            width: 100%;
+            padding: 10px;
+            font-size: 16px;
+            border: 1px solid #ccc;
+            border-radius: 5px;
+            box-sizing: border-box;
+        }
+        .form-group input[type="file"] {
+            padding: 5px;
+        }
+        .form-group input:focus,
+        .form-group select:focus {
+            border-color: #ff6f61;
+            outline: none;
+            box-shadow: 0 0 5px rgba(255, 111, 97, 0.8);
+        }
+        .form-group .radio-group {
+            display: flex;
+            gap: 10px;
+        }
+        .form-group .radio-group label {
+            font-weight: normal;
+        }
+        .submit-btn {
+            display: block;
+            width: 100%;
+            padding: 12px;
+            font-size: 18px;
+            font-weight: bold;
+            color: #fff;
+            background: #ff6f61;
+            border: none;
+            border-radius: 5px;
+            cursor: pointer;
+            transition: background 0.3s ease;
+        }
+        .submit-btn:hover {
+            background: #e55d50;
+        }
+        .file-content {
+            margin-top: 20px;
+            padding: 10px;
+            background: #f9f9f9;
+            border: 1px dashed #ccc;
+            border-radius: 5px;
+            max-height: 200px;
+            overflow: auto;
+        }
+    </style>
+</head>
+<body>
+    <div class="form-container">
+        <h1>Candidate Information</h1>
+        <form>
+            <!-- Basic Information Fields -->
+            <div class="form-group">
+                <label for="first-name">First Name:</label>
+                <input type="text" id="first-name" name="first-name" placeholder="Enter first name" required>
+            </div>
+            <div class="form-group">
+                <label for="middle-name">Middle Name:</label>
+                <input type="text" id="middle-name" name="middle-name" placeholder="Enter middle name">
+            </div>
+            <div class="form-group">
+                <label for="last-name">Last Name:</label>
+                <input type="text" id="last-name" name="last-name" placeholder="Enter last name" required>
+            </div>
+            <div class="form-group">
+                <label for="phone">Phone No:</label>
+                <input type="tel" id="phone" name="phone" placeholder="Enter phone number" required>
+            </div>
+            <div class="form-group">
+                <label for="email">Email ID:</label>
+                <input type="email" id="email" name="email" placeholder="Enter email" required>
+            </div>
+            <div class="form-group">
+                <label for="location">Location:</label>
+                <input type="text" id="location" name="location" placeholder="Enter location" required>
+            </div>
+            <div class="form-group">
+                <label>Position Type:</label>
+                <div class="radio-group">
+                    <label>
+                        <input type="radio" name="position-type" value="FTE" required> Full-Time
+                    </label>
+                    <label>
+                        <input type="radio" name="position-type" value="Contract" required> Contract
+                    </label>
+                </div>
+            </div>
+            <div class="form-group">
+                <label for="budget">Budget/Salary:</label>
+                <input type="number" id="budget" name="budget" placeholder="Enter budget or salary" required>
+            </div>
+
+            <!-- File Upload Section -->
+            <div class="form-group">
+                <label for="file-upload">Upload Resume or Supporting Documents:</label>
+                <input type="file" id="file-upload" name="file-upload" accept="*/*">
+            </div>
+
+            <!-- File Content Display -->
+            <div id="file-content" class="file-content" hidden>
+                <h3>Uploaded File Content:</h3>
+                <pre id="file-preview"></pre>
+            </div>
+
+            <button type="submit" class="submit-btn">Submit</button>
+        </form>
+    </div>
+
+    <script>
+        const fileUpload = document.getElementById('file-upload');
+        const fileContent = document.getElementById('file-content');
+        const filePreview = document.getElementById('file-preview');
+
+        fileUpload.addEventListener('change', function () {
+            const file = fileUpload.files[0];
+            if (file) {
+                const reader = new FileReader();
+                reader.onload = function (e) {
+                    filePreview.textContent = e.target.result;
+                    fileContent.hidden = false;
+                };
+                reader.readAsText(file); // Read file as text
+            } else {
+                fileContent.hidden = true;
+            }
+        });
+    </script>
+</body>
+</html>
